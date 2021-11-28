@@ -1,5 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { Character } from "../../types/api";
 
 interface CharacterListItemProps {
@@ -8,16 +9,23 @@ interface CharacterListItemProps {
 }
 
 const CharacterListItem: React.FC<CharacterListItemProps> = ({character, isLast}) => {
-   
+    const navigation = useNavigation()
+    
     const styles = createStyles(isLast ?? false)
+    
+    const navigateToCharacter = () => {
+        navigation.navigate("SelectedCharacter" as never, { characterName: character.name} as never) //TO DO: Fix types
+    }
    
     return (
-        <View style={styles.outerContainer}>
-            <View style={styles.leftInnerContainer}></View>   
-            <View style={styles.rightInnerContainer}>
-                <Text style={styles.characterName}>{character.name}</Text>
-            </View>
-        </View>
+        <TouchableHighlight style={styles.outerContainer} onPress={navigateToCharacter}>
+            <>
+                <View style={styles.leftInnerContainer}></View>   
+                <View style={styles.rightInnerContainer}>
+                    <Text style={styles.characterName}>{character.name}</Text>
+                </View>
+            </>
+        </TouchableHighlight>
     )
 }
 

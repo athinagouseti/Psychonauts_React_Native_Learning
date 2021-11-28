@@ -5,9 +5,12 @@ import Characters from '../characters/Characters';
 import Favourites from '../favourites/Favourites';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Character } from "../../types/api";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SelectedCharacter from "../selectedCharacter/SelectedCharacter";
 
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const Container: React.FC = ()=> {
 
@@ -30,11 +33,18 @@ const Container: React.FC = ()=> {
 
     };
 
+    const CharacterStack = () => (
+        <Stack.Navigator>
+            <Stack.Screen name="Characters" component={Characters} />
+            <Stack.Screen name="SelectedCharacter" component={SelectedCharacter} />
+        </Stack.Navigator>
+    )
+
     return(
     <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Home" component={Homescreen} />
-          <Tab.Screen name="Characters" component={Characters} />
+          <Tab.Screen name="Characters Tab" component={CharacterStack} options={{headerShown: false}} />
           <Tab.Screen name="Favourites" component={Favourites} />
         </Tab.Navigator>
     </NavigationContainer>
