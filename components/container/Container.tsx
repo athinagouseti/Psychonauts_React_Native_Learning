@@ -11,23 +11,7 @@ const Tab = createBottomTabNavigator();
 
 const Container: React.FC = ()=> {
 
-    const [characters, setCharacters] = useState<Character[]>([]);
-    const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
     const [favouriteCharacters, setFavouriteCharacters] = useState<Character[]>([]);
-
-    const fetchAllCharacters = ()=>{
-        fetch("https://psychonauts-api.herokuapp.com/api/characters")
-        .then(response => response.json())
-        .then(data => setCharacters(data))
-    }
-
-    useEffect(()=>{
-        fetchAllCharacters()
-    },[]);
-
-    const onCharacterClick = (character: Character) => {
-        setSelectedCharacter(character)
-    };
 
     const onFavouriteCharacterClick = (character: Character) => {
         const characterAlreadyFavourite = favouriteCharacters.some((favourite) => {
